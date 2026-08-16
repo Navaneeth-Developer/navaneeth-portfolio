@@ -6,7 +6,7 @@ import { TechnologiesCardProps } from '../interfaces/technologiesCard'
 const TechnologiesCard = ({ technologies }: TechnologiesCardProps) => {
   return (
      <GlassCard className="flex flex-col h-full">
-          <h2 className="text-2xl font-bold mb-6 tracking-wide">Technologies</h2>
+          <h2 className="text-2xl font-bold mb-6 tracking-wide">Core Expertise & Stack</h2>
           
           <div className="flex flex-wrap gap-3">
             {technologies.map((tech,i) => (
