@@ -1,69 +1,54 @@
-import Image from "next/image";
+import ProfilePhoto from "./components/ProfilePhoto";
+import ResumeMakerCard from "./components/ResumeMakerCard";
+import TechnologiesCard from "./components/TechnologiesCard";
 
 export default function Home() {
+  const technologies: string[] = [
+    "Next.js", "React", "Node.js", "SCSS",
+    "Tailwind CSS", "Framer Motion", "TypeScript",
+    "Angular", "Java", "Docker", "RabbitMQ",
+    "Kafka", "Python", "MongoDB",
+    "PostgreSQL", "MariaDB"
+  ];
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
+    <main className="min-h-screen p-6 md:p-12 max-w-5xl mx-auto flex flex-col gap-12">
+      
+      {/* 
+        UPDATED HERO SECTION: 
+        Using flexbox (flex-row on desktop) to guarantee side-by-side alignment.
+        items-center ensures they are vertically aligned in the middle. 
+      */}
+      <section className="mt-16 mb-12 px-4 flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 w-full">
+        
+        {/* Hero Text Content (Left Side) */}
+        <div className="flex flex-col gap-4 text-center md:text-left w-full md:max-w-xl">
+          <h1 className="text-5xl md:text-7xl font-bold tracking-tight mb-2">
+            Hello, I'm <br/>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+              NAVANEETH
+            </span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="text-xl text-white/70 font-medium leading-relaxed">
+            Passionate about building scalable systems and crafting seamless user interfaces. Specialized in full-stack JavaScript development.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        {/* Profile Photo (Right Side) */}
+        {/* flex-shrink-0 prevents the photo from being squished by the text */}
+        <div className="flex-shrink-0">
+          <ProfilePhoto />
         </div>
-      </main>
-    </div>
+
+      </section>
+
+      {/* Grid of Glass Cards */}
+      <section className="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+        <ResumeMakerCard/>
+        <TechnologiesCard technologies={technologies}/>
+      </section>
+
+    
+    </main>
   );
 }
