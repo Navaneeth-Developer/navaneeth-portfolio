@@ -18,7 +18,7 @@ export default function ScrollReveal({
 }: ScrollRevealProps) {
   
   // Define the starting position based on the direction prop
-  const fadeAndSlide = {
+ const fadeAndSlide = {
     hidden: {
       opacity: 0,
       y: direction === 'up' ? 40 : direction === 'down' ? -40 : 0,
@@ -29,9 +29,9 @@ export default function ScrollReveal({
       y: 0,
       x: 0,
       transition: {
-        duration: 0.8, // Smooth, slow duration
+        duration: 0.8,
         delay: delay,
-        ease: [0.16, 1, 0.3, 1], // This exact cubic-bezier curve gives that premium "Apple" feel
+        ease: [0.16, 1, 0.3, 1] as any, // <-- ADD "as any" HERE
       },
     },
   };
