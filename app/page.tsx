@@ -16,11 +16,7 @@ export default function Home() {
 
   return (
     // Added overflow-hidden to prevent scrollbars during slide animations
-<main className="min-h-screen p-6 md:p-12 pt-20 md:pt-24 max-w-5xl mx-auto flex flex-col gap-12 overflow-hidden">      {/* 
-        UPDATED HERO SECTION: 
-        Using flexbox (flex-row on desktop) to guarantee side-by-side alignment.
-        items-center ensures they are vertically aligned in the middle. 
-      */}
+<main className="min-h-screen p-6 md:p-12 pt-20 md:pt-24 max-w-5xl mx-auto flex flex-col gap-8 overflow-hidden">     
       <section className="mt-16 mb-12 px-4 flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 w-full">
         
         {/* Hero Text Content (Left Side) - Slides up */}
