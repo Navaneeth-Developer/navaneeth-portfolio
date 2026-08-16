@@ -7,12 +7,11 @@ import TechnologiesCard from "./components/TechnologiesCard";
 import ScrollReveal from "./components/ScrollReveal"; // Import the wrapper
 
 export default function Home() {
-  const technologies: string[] = [
-    "Next.js", "React", "Node.js", "SCSS",
-    "Tailwind CSS", "Framer Motion", "TypeScript",
-    "Angular", "Java", "Docker", "RabbitMQ",
-    "Kafka", "Python", "MongoDB",
-    "PostgreSQL", "MariaDB"
+ const technologies: string[] = [
+    "JavaScript", "TypeScript", "React", "Next.js", 
+    "Node.js", "Angular", "Java", "MongoDB", 
+    "PostgreSQL", "MariaDB", "Redis", "Kafka", 
+    "RabbitMQ", "Docker", "CI/CD Pipeline", "Tailwind CSS"
   ];
 
   return (
