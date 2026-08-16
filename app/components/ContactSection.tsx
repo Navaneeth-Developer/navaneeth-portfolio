@@ -22,11 +22,11 @@ export default function ContactSection() {
 
       {/* CHANGED: items-start to items-stretch ensures both columns match heights */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-        
+
         {/* Left Column: Contact Info */}
         {/* CHANGED: Added h-full to the wrapper */}
         <div className="flex flex-col h-full gap-4">
-          
+
           {/* Email */}
           {/* CHANGED: Added flex-1 to all 4 cards so they evenly fill the column height */}
           <GlassCard className="flex items-center gap-5 hover:bg-white/10 transition-colors py-5 px-6 flex-1">
@@ -83,39 +83,25 @@ export default function ContactSection() {
         {/* Right Column: Contact Form */}
         <GlassCard className="h-full flex flex-col">
           <h3 className="text-2xl font-bold mb-6">Send me a message</h3>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5 flex-grow">
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-white/70 mb-2 pl-2">Name</label>
-              <input 
-                type="text" 
-                id="name" 
-                required
-                className="w-full bg-black/20 border border-white/10 rounded-2xl px-5 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-white/30"
-                placeholder="John Doe"
-              />
-            </div>
-            <div>
-              <label htmlFor="email" className="block text-sm font-medium text-white/70 mb-2 pl-2">Email</label>
-              <input 
-                type="email" 
-                id="email" 
-                required
-                className="w-full bg-black/20 border border-white/10 rounded-2xl px-5 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-white/30"
-                placeholder="john@example.com"
-              />
-            </div>
-            <div className="flex-grow flex flex-col">
-              <label htmlFor="message" className="block text-sm font-medium text-white/70 mb-2 pl-2">Message</label>
-              <textarea 
-                id="message" 
-                required
-                className="w-full flex-grow min-h-[120px] bg-black/20 border border-white/10 rounded-2xl px-5 py-3.5 text-white focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all placeholder:text-white/30 resize-none"
-                placeholder="How can I help you?"
-              ></textarea>
-            </div>
-            <button 
-              type="submit" 
-              className="mt-2 w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-400 hover:to-purple-500 text-white font-bold py-4 rounded-2xl transition-all duration-300 shadow-lg shadow-blue-500/25"
+          <form className="flex flex-col gap-4">
+            <input
+              type="text"
+              placeholder="Your Name"
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors"
+            />
+            <input
+              type="email"
+              placeholder="Your Email"
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors"
+            />
+            <textarea
+              rows={4}
+              placeholder="Your Message"
+              className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors resize-none"
+            />
+            <button
+              type="submit"
+              className="w-full py-3 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold hover:opacity-90 transition-opacity"
             >
               Send Message
             </button>
