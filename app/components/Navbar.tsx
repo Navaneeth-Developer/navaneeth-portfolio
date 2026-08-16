@@ -1,21 +1,29 @@
 'use client';
 
 import React, { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const navLinks = [
-    { name: 'About', href: '#about' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
   ];
 
+  // Smooth scroll handler function
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+    setIsOpen(false); // Close mobile menu on click
+  };
+
   return (
-    // 1. Changed <nav> to <motion.nav>
-    // 2. Added initial, animate, and transition props for the slide-down effect
     <motion.nav 
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
@@ -25,15 +33,23 @@ export default function Navbar() {
       <div className="w-full max-w-4xl bg-white/5 backdrop-blur-xl border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.15),0_8px_32px_0_rgba(0,0,0,0.4)] rounded-3xl px-6 py-3 flex items-center justify-between pointer-events-auto transition-all duration-300">
         
         {/* Logo */}
-        <a href="#" className="text-xl font-bold tracking-wider hover:text-blue-400 transition-colors">
-          NAVANEETH<span className="text-blue-500">.</span>
+        <a 
+          href="#home" 
+          onClick={(e) => scrollToSection(e, '#home')} 
+          className="text-xl font-bold tracking-wider hover:text-blue-400 transition-colors cursor-pointer"
+        >
+          NAVANEETH<span className="text-blue-500">.</span>DEV
         </a>
 
         {/* Desktop Links */}
         <ul className="hidden md:flex items-center gap-8">
           {navLinks.map((link) => (
             <li key={link.name}>
-              <a href={link.href} className="text-sm font-medium opacity-70 hover:opacity-100 transition-colors">
+              <a 
+                href={link.href} 
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="text-sm font-medium opacity-70 hover:opacity-100 transition-colors cursor-pointer"
+              >
                 {link.name}
               </a>
             </li>
@@ -66,34 +82,36 @@ export default function Navbar() {
 
       </div>
 
-      {/* Mobile Menu Dropdown */}
-     {/* Mobile Menu Dropdown */}
-      {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          // CHANGED: Removed bg-black/60. Used bg-white/5 with backdrop-blur-3xl for a heavy, premium glass effect
-          className="absolute top-20 left-6 right-6 p-4 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[24px] shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] pointer-events-auto md:hidden flex flex-col gap-4"
-        >
-          {navLinks.map((link) => (
-            <a 
-              key={link.name} 
-              href={link.href} 
-              onClick={() => setIsOpen(false)} 
-              className="text-white/80 hover:text-white font-medium p-2 text-lg transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
-          <a 
-            href="/navaneeth_resume.pdf" 
-            download 
-            className="text-center w-full px-5 py-3 mt-2 rounded-xl bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold hover:bg-blue-500/30 transition-colors"
+      {/* Mobile Menu Dropdown with AnimatePresence for smooth entry AND exit */}
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -20, scale: 0.95 }}
+            transition={{ duration: 0.25, ease: "easeInOut" }}
+            className="absolute top-20 left-6 right-6 p-4 bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[24px] shadow-[0_8px_32px_0_rgba(31,38,135,0.2)] pointer-events-auto md:hidden flex flex-col gap-4"
           >
-            Download Resume
-          </a>
-        </motion.div>
-      )}
+            {navLinks.map((link) => (
+              <a 
+                key={link.name} 
+                href={link.href} 
+                onClick={(e) => scrollToSection(e, link.href)} 
+                className="text-white/80 hover:text-white font-medium p-2 text-lg transition-colors cursor-pointer"
+              >
+                {link.name}
+              </a>
+            ))}
+            <a 
+              href="/navaneeth_resume.pdf" 
+              download 
+              className="text-center w-full px-5 py-3 mt-2 rounded-xl bg-blue-500/20 border border-blue-500/30 text-blue-400 font-bold hover:bg-blue-500/30 transition-colors"
+            >
+              Download Resume
+            </a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 }

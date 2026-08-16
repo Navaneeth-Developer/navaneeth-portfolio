@@ -1,5 +1,6 @@
 import React from 'react';
 import GlassCard from './GlassCard';
+import ScrollReveal from './ScrollReveal'; // Import your ScrollReveal component
 
 export default function ProjectsSection() {
   const projects = [
@@ -31,50 +32,59 @@ export default function ProjectsSection() {
 
   return (
     <section id="projects" className="w-full py-12 px-4 scroll-mt-24">
-      <div className="mb-10">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-center md:text-left">
-          Professional Work
-        </h2>
-      </div>
+      <ScrollReveal direction="up" delay={0.1}>
+        <div className="mb-10">
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-center md:text-left">
+            Professional Work
+          </h2>
+        </div>
+      </ScrollReveal>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-stretch">
-        {projects.map((project) => (
-          <GlassCard key={project.id} className="flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
-            
-            {/* Project Header */}
-            <div className="flex justify-between items-start mb-5">
-              <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-2xl border border-white/10 shadow-inner">
-                {project.icon}
-              </div>
+        {projects.map((project, index) => (
+          <ScrollReveal 
+            key={project.id} 
+            direction="up" 
+            delay={0.2 + (index * 0.1)} // Staggered delay for each card
+            className="h-full"
+          >
+            <GlassCard className="flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
               
-              {/* Enterprise Badge instead of Links */}
-              {project.isEnterprise && (
-                <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-600/50">
-                  <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-                  </svg>
-                  <span className="text-xs font-semibold text-slate-300 tracking-wide uppercase">Enterprise</span>
+              {/* Project Header */}
+              <div className="flex justify-between items-start mb-5">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-2xl border border-white/10 shadow-inner">
+                  {project.icon}
                 </div>
-              )}
-            </div>
+                
+                {/* Enterprise Badge instead of Links */}
+                {project.isEnterprise && (
+                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-600/50">
+                    <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                    </svg>
+                    <span className="text-xs font-semibold text-slate-300 tracking-wide uppercase">Enterprise</span>
+                  </div>
+                )}
+              </div>
 
-            {/* Project Content */}
-            <div className="flex-grow">
-              <h3 className="text-xl font-bold mb-3">{project.title}</h3>
-              <p className="text-white/60 text-sm leading-relaxed mb-6">
-                {project.description}
-              </p>
-            </div>
+              {/* Project Content */}
+              <div className="flex-grow">
+                <h3 className="text-xl font-bold mb-3">{project.title}</h3>
+                <p className="text-white/60 text-sm leading-relaxed mb-6">
+                  {project.description}
+                </p>
+              </div>
 
-            {/* Tech Stack Tags */}
-            <div className="flex flex-wrap gap-2 mt-auto">
-              {project.tech.map((t, i) => (
-                <span key={i} className="text-xs font-medium px-2.5 py-1 rounded-md bg-black/30 text-white/70 border border-white/5">
-                  {t}
-                </span>
-              ))}
-            </div>
-          </GlassCard>
+              {/* Tech Stack Tags */}
+              <div className="flex flex-wrap gap-2 mt-auto">
+                {project.tech.map((t, i) => (
+                  <span key={i} className="text-xs font-medium px-2.5 py-1 rounded-md bg-black/30 text-white/70 border border-white/5">
+                    {t}
+                  </span>
+                ))}
+              </div>
+            </GlassCard>
+          </ScrollReveal>
         ))}
       </div>
     </section>
