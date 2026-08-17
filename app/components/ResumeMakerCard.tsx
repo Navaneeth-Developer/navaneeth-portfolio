@@ -1,4 +1,6 @@
-import GlassCard from './GlassCard'
+import React from 'react';
+import GlassCard from './GlassCard';
+import { FiFileText } from 'react-icons/fi';
 
 const ResumeMakerCard = () => {
   return (
@@ -6,7 +8,7 @@ const ResumeMakerCard = () => {
           
           <div className="flex-grow">
             <div className="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center mb-6 text-xl">
-              📄
+              <FiFileText />
             </div>
             <h2 className="text-2xl font-bold mb-3 tracking-wide">Resume Maker</h2>
             <p className="text-white/60 leading-relaxed pr-4">
@@ -25,4 +27,4 @@ const ResumeMakerCard = () => {
   )
 }
 
-export default ResumeMakerCard
+export default ResumeMakerCard;

@@ -5,18 +5,13 @@ import ProjectsSection from "./components/ProjectsSection";
 import ResumeMakerCard from "./components/ResumeMakerCard";
 import TechnologiesCard from "./components/TechnologiesCard";
 import ScrollReveal from "./components/ScrollReveal"; // Import the wrapper
+import { p } from "framer-motion/client";
 
 export default function Home() {
- const technologies: string[] = [
-    "JavaScript", "TypeScript", "React", "Next.js", 
-    "Node.js", "Angular", "Java", "MongoDB", 
-    "PostgreSQL", "MariaDB", "Redis", "Kafka", 
-    "RabbitMQ", "Docker", "CI/CD Pipeline", "Tailwind CSS"
-  ];
 
   return (
     // Added overflow-hidden to prevent scrollbars during slide animations
-<main className="min-h-screen p-6 md:p-12 pt-20 md:pt-24 max-w-5xl mx-auto flex flex-col gap-8 overflow-hidden">     
+<main id="home" className="min-h-screen p-6 md:p-12 pt-20 md:pt-24 max-w-5xl mx-auto flex flex-col gap-8 overflow-hidden">     
       <section className="mt-16 mb-12 px-4 flex flex-col-reverse md:flex-row items-center justify-between gap-8 md:gap-12 w-full">
         
         {/* Hero Text Content (Left Side) - Slides up */}
@@ -46,7 +41,7 @@ export default function Home() {
         </ScrollReveal>
         
         <ScrollReveal direction="up" delay={0.4} className="h-full">
-          <TechnologiesCard technologies={technologies}/>
+          <TechnologiesCard />
         </ScrollReveal>
       </section>
 

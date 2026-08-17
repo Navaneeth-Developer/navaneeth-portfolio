@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import Navbar from './components/Navbar';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col antialiased">
         <Navbar />
         {children}
+        <ScrollToTopButton />
       </body>
     </html>
   );

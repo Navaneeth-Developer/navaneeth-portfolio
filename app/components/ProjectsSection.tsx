@@ -1,6 +1,8 @@
 import React from 'react';
 import GlassCard from './GlassCard';
-import ScrollReveal from './ScrollReveal'; // Import your ScrollReveal component
+import ScrollReveal from './ScrollReveal';
+import { FiCpu, FiBarChart2, FiZap } from 'react-icons/fi';
+import { getTechIcon } from '../utils/techIcons';
 
 export default function ProjectsSection() {
   const projects = [
@@ -10,7 +12,7 @@ export default function ProjectsSection() {
       description: "A robust backend architecture built to support multi-role access and scalable interactive coding environments. Integrates OpenAI/Gemini for real-time coding assistance.",
       tech: ["Node.js", "Express", "MongoDB", "Kafka", "JWT"],
       isEnterprise: true,
-      icon: "🧠"
+      icon: <FiCpu className="text-pink-400 text-xl" />
     },
     {
       id: 2,
@@ -18,7 +20,7 @@ export default function ProjectsSection() {
       description: "A high-throughput microservice streamlining cross-dataset accessibility for business intelligence teams, reducing query latency significantly.",
       tech: ["Node.js", "RabbitMQ", "Redis", "PostgreSQL"],
       isEnterprise: true,
-      icon: "📊"
+      icon: <FiBarChart2 className="text-cyan-400 text-xl" />
     },
     {
       id: 3,
@@ -26,7 +28,7 @@ export default function ProjectsSection() {
       description: "Event-driven architecture for a task manager, allowing asynchronous processing of heavy background jobs ensuring 99.9% uptime.",
       tech: ["TypeScript", "Docker", "RabbitMQ", "React"],
       isEnterprise: true,
-      icon: "⚡"
+      icon: <FiZap className="text-yellow-400 text-xl" />
     }
   ];
 
@@ -45,18 +47,17 @@ export default function ProjectsSection() {
           <ScrollReveal 
             key={project.id} 
             direction="up" 
-            delay={0.2 + (index * 0.1)} // Staggered delay for each card
+            delay={0.2 + (index * 0.1)} 
             className="h-full"
           >
             <GlassCard className="flex flex-col h-full hover:-translate-y-1 transition-transform duration-300">
               
               {/* Project Header */}
               <div className="flex justify-between items-start mb-5">
-                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center text-2xl border border-white/10 shadow-inner">
+                <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10 shadow-inner">
                   {project.icon}
                 </div>
                 
-                {/* Enterprise Badge instead of Links */}
                 {project.isEnterprise && (
                   <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-slate-800/50 border border-slate-600/50">
                     <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -75,13 +76,20 @@ export default function ProjectsSection() {
                 </p>
               </div>
 
-              {/* Tech Stack Tags */}
+              {/* Tech Stack Tags with Centralized Icons */}
               <div className="flex flex-wrap gap-2 mt-auto">
-                {project.tech.map((t, i) => (
-                  <span key={i} className="text-xs font-medium px-2.5 py-1 rounded-md bg-black/30 text-white/70 border border-white/5">
-                    {t}
-                  </span>
-                ))}
+                {project.tech.map((t, i) => {
+                  const icon = getTechIcon(t);
+                  return (
+                    <span 
+                      key={i} 
+                      className="flex items-center gap-1.5 text-xs font-medium px-2.5 py-1.5 rounded-lg bg-black/30 text-white/80 border border-white/5"
+                    >
+                      {icon && <span className="text-sm">{icon}</span>}
+                      <span>{t}</span>
+                    </span>
+                  );
+                })}
               </div>
             </GlassCard>
           </ScrollReveal>
