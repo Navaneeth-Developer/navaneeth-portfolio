@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import MagneticWrapper from './MagneticWrapper'; // <-- Imported the new component
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -30,17 +31,6 @@ export default function Navbar() {
   }, [isOpen]);
 
   // Smooth scroll handler function
-  // const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
-  //   e.preventDefault();
-  //   const targetId = href.replace('#', '');
-  //   const element = document.getElementById(targetId);
-  //   if (element) {
-  //     element.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  //   setIsOpen(false); // Close mobile menu on click
-  // };
-  // Smooth scroll handler function
- // Smooth scroll handler function
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
@@ -99,13 +89,16 @@ export default function Navbar() {
 
         {/* Action Buttons (Desktop) */}
         <div className="hidden md:flex items-center gap-4">
-          <a 
-            href="/navaneeth_resume.pdf" 
-            download
-            className="px-5 py-2 rounded-full bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 text-blue-400 text-sm font-semibold transition-all duration-300"
-          >
-            Resume
-          </a>
+          {/* Wrapped the Resume button in the MagneticWrapper */}
+          <MagneticWrapper pullStrength={0.25}>
+            <a 
+              href="/navaneeth_resume.pdf" 
+              download
+              className="block px-5 py-2 rounded-full bg-blue-500/20 hover:bg-blue-500/30 border border-blue-500/30 text-blue-400 text-sm font-semibold transition-all duration-300"
+            >
+              Resume
+            </a>
+          </MagneticWrapper>
         </div>
 
         {/* Mobile Menu Toggle */}

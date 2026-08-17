@@ -5,6 +5,7 @@ import GlassCard from './GlassCard';
 import { FiMail, FiPhone, FiUser, FiMessageSquare, FiSend, FiMapPin } from 'react-icons/fi';
 import { SiGithub } from 'react-icons/si';
 import { SlSocialLinkedin } from 'react-icons/sl';
+import MagneticWrapper from './MagneticWrapper';
 
 export default function ContactSection() {
   const [formDataState, setFormDataState] = useState({
@@ -15,13 +16,13 @@ export default function ContactSection() {
 
   const [result, setResult] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // Reference to the form to trigger programmatic submission
   const formRef = useRef<HTMLFormElement>(null);
 
-  const isFormValid = 
-    formDataState.name.trim() !== '' && 
-    formDataState.email.trim() !== '' && 
+  const isFormValid =
+    formDataState.name.trim() !== '' &&
+    formDataState.email.trim() !== '' &&
     formDataState.message.trim() !== '';
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -52,7 +53,7 @@ export default function ContactSection() {
     const formData = new FormData(event.currentTarget);
     formData.append('access_key', 'ad828e18-a0cc-4026-aa9a-cc25ab472bff');
     formData.append('subject', `New Portfolio Message from ${formDataState.name}`);
-    formData.append('from_name', formDataState.name); 
+    formData.append('from_name', formDataState.name);
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -85,8 +86,8 @@ export default function ContactSection() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-          <a 
-            href="mailto:navaneeth.softwareengineer@gmail.com" 
+          <a
+            href="mailto:navaneeth.softwareengineer@gmail.com"
             className="flex items-center gap-3 p-3.5 rounded-xl bg-black/20 hover:bg-white/10 border border-white/5 transition-colors group"
           >
             <div className="p-2.5 rounded-lg bg-blue-500/20 text-blue-400">
@@ -100,8 +101,8 @@ export default function ContactSection() {
             </div>
           </a>
 
-          <a 
-            href="tel:+918438472565" 
+          <a
+            href="tel:+918438472565"
             className="flex items-center gap-3 p-3.5 rounded-xl bg-black/20 hover:bg-white/10 border border-white/5 transition-colors group"
           >
             <div className="p-2.5 rounded-lg bg-purple-500/20 text-purple-400">
@@ -132,12 +133,12 @@ export default function ContactSection() {
         <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
           <div className="relative flex items-center">
             <FiUser className="absolute left-4 text-white/40 text-lg" />
-            <input 
-              type="text" 
+            <input
+              type="text"
               name="name"
               value={formDataState.name}
               onChange={handleChange}
-              placeholder="Your Name" 
+              placeholder="Your Name"
               required
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/20 border border-white/5 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors text-sm"
             />
@@ -145,12 +146,12 @@ export default function ContactSection() {
 
           <div className="relative flex items-center">
             <FiMail className="absolute left-4 text-white/40 text-lg" />
-            <input 
-              type="email" 
+            <input
+              type="email"
               name="email"
               value={formDataState.email}
               onChange={handleChange}
-              placeholder="Your Email" 
+              placeholder="Your Email"
               required
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/20 border border-white/5 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors text-sm"
             />
@@ -158,46 +159,47 @@ export default function ContactSection() {
 
           <div className="relative flex">
             <FiMessageSquare className="absolute left-4 top-3.5 text-white/40 text-lg" />
-            <textarea 
+            <textarea
               name="message"
               rows={4}
               value={formDataState.message}
               onChange={handleChange}
               onKeyDown={handleKeyDown} // Trigger submission on Enter
-              placeholder="Your Message (Press Enter to send)" 
+              placeholder="Your Message (Press Enter to send)"
               required
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/20 border border-white/5 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors resize-none text-sm"
             />
           </div>
+          <MagneticWrapper className="w-full">
 
-          <button 
-            type="submit"
-            disabled={!isFormValid || isSubmitting}
-            className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold transition-all duration-300 ${
-              isFormValid && !isSubmitting
-                ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-95 cursor-pointer shadow-lg'
-                : 'bg-white/5 text-white/40 border border-white/5 cursor-not-allowed'
-            }`}
-          >
-            <FiSend />
-            <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
-          </button>
+            <button
+              type="submit"
+              disabled={!isFormValid || isSubmitting}
+              className={`flex items-center justify-center gap-2 w-full py-3 rounded-xl font-semibold transition-all duration-300 ${isFormValid && !isSubmitting
+                  ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:opacity-95 cursor-pointer shadow-lg'
+                  : 'bg-white/5 text-white/40 border border-white/5 cursor-not-allowed'
+                }`}
+            >
+              <FiSend />
+              <span>{isSubmitting ? 'Sending...' : 'Send Message'}</span>
+            </button>
+          </MagneticWrapper>
 
           {result && <p className="text-sm text-white/80 text-center mt-2">{result}</p>}
         </form>
 
         <div className="flex items-center justify-center gap-4 pt-4 border-t border-white/5">
-          <a 
-            href="https://linkedin.com/in/navaneethl" 
-            target="_blank" 
+          <a
+            href="https://linkedin.com/in/navaneethl"
+            target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-xl bg-black/20 hover:bg-white/10 border border-white/5 text-white/80 hover:text-white transition-colors"
           >
             <SlSocialLinkedin className="text-lg text-blue-400" />
           </a>
-          <a 
-            href="https://github.com" 
-            target="_blank" 
+          <a
+            href="https://github.com"
+            target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-xl bg-black/20 hover:bg-white/10 border border-white/5 text-white/80 hover:text-white transition-colors"
           >
