@@ -3,6 +3,7 @@ import './globals.css';
 import Navbar from './components/Navbar';
 import ScrollToTopButton from './components/ScrollToTopButton';
 import CustomCursor from './components/CustomCursor';
+import ScrollProgressBar from './components/ScrollProgressBar';
 
 
 export const metadata: Metadata = {
@@ -18,6 +19,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="min-h-full flex flex-col antialiased">
+        <ScrollProgressBar />
         <CustomCursor/>
         <Navbar />
         {children}
