@@ -7,11 +7,15 @@ export default function CustomCursor() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isHovering, setIsHovering] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
-
-  // Detect if the device is a touch screen (we don't want custom cursors on mobile)
   const [isTouchDevice, setIsTouchDevice] = useState(false);
+  
+  // NEW: Add a state to check if the component has safely loaded in the browser
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    // Tell the component it has successfully loaded on the client
+    setIsMounted(true);
+
     // Basic mobile/touch detection
     if (window.matchMedia('(pointer: coarse)').matches) {
       setIsTouchDevice(true);
@@ -26,10 +30,8 @@ export default function CustomCursor() {
     const handleMouseLeave = () => setIsVisible(false);
     const handleMouseEnter = () => setIsVisible(true);
 
-    // Detect if we are hovering over anything clickable
     const handleMouseOver = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      // Check if the element or its parent is an anchor (link) or button
       if (
         target.tagName.toLowerCase() === 'a' ||
         target.tagName.toLowerCase() === 'button' ||
@@ -55,34 +57,31 @@ export default function CustomCursor() {
     };
   }, [isVisible]);
 
-  // Don't render anything if on a phone/tablet
-  if (isTouchDevice) return null;
+  // FIX: If it hasn't finished loading yet, OR if it's a touch device, render absolutely nothing.
+  if (!isMounted || isTouchDevice) return null;
 
   return (
     <>
-      {/* 1. The small leading dot */}
       <motion.div
         className="fixed top-0 left-0 w-3 h-3 bg-blue-500 rounded-full pointer-events-none z-[9999]"
         animate={{
-          x: mousePosition.x - 6, // Offset by half the width/height to center it
+          x: mousePosition.x - 6,
           y: mousePosition.y - 6,
-          scale: isHovering ? 0 : 1, // Shrink to nothing when hovering over a link
+          scale: isHovering ? 0 : 1,
           opacity: isVisible ? 1 : 0
         }}
         transition={{ type: "tween", ease: "backOut", duration: 0.1 }}
       />
       
-      {/* 2. The trailing glowing ring */}
       <motion.div
         className="fixed top-0 left-0 w-8 h-8 border-[1.5px] border-blue-400 rounded-full pointer-events-none z-[9998]"
         animate={{
           x: mousePosition.x - 16,
           y: mousePosition.y - 16,
-          scale: isHovering ? 1.8 : 1, // Expand heavily over links
+          scale: isHovering ? 1.8 : 1,
           backgroundColor: isHovering ? "rgba(59, 130, 246, 0.15)" : "transparent",
           opacity: isVisible ? 1 : 0
         }}
-        // The spring transition gives it that physical, drag-behind feeling
         transition={{ type: "spring", stiffness: 150, damping: 15, mass: 0.2 }}
       />
     </>
