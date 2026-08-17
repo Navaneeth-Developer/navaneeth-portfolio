@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import GlassCard from './GlassCard';
-import { FiMail, FiPhone, FiUser, FiMessageSquare, FiSend } from 'react-icons/fi';
+import { FiMail, FiPhone, FiUser, FiMessageSquare, FiSend, FiMapPin } from 'react-icons/fi';
 import { SiGithub } from 'react-icons/si';
 import { SlSocialLinkedin } from 'react-icons/sl';
 
@@ -15,8 +15,10 @@ export default function ContactSection() {
 
   const [result, setResult] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Reference to the form to trigger programmatic submission
+  const formRef = useRef<HTMLFormElement>(null);
 
-  // Check if all fields are filled
   const isFormValid = 
     formDataState.name.trim() !== '' && 
     formDataState.email.trim() !== '' && 
@@ -29,6 +31,17 @@ export default function ContactSection() {
     });
   };
 
+  // Handle "Enter" key press inside the textarea
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    // If Enter is pressed without holding Shift, and the form is valid
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault(); // Prevent creating a new line
+      if (isFormValid && !isSubmitting && formRef.current) {
+        formRef.current.requestSubmit(); // Trigger the form's onSubmit event
+      }
+    }
+  };
+
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!isFormValid) return;
@@ -38,10 +51,8 @@ export default function ContactSection() {
 
     const formData = new FormData(event.currentTarget);
     formData.append('access_key', 'ad828e18-a0cc-4026-aa9a-cc25ab472bff');
-    
-    // Add these fields to customize your email subject and greeting layout
     formData.append('subject', `New Portfolio Message from ${formDataState.name}`);
-    formData.append('from_name', formDataState.name); // This replaces the generic sender name
+    formData.append('from_name', formDataState.name); 
 
     try {
       const response = await fetch('https://api.web3forms.com/submit', {
@@ -66,15 +77,14 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="w-full py-12">
+    <section id="contact" className="w-full py-12 px-4 scroll-mt-24">
       <GlassCard className="flex flex-col gap-6">
         <div>
           <h2 className="text-2xl font-bold tracking-wide text-white">Get In Touch</h2>
           <p className="text-white/60 text-sm mt-1">Have a project in mind or want to connect? Drop a message below.</p>
         </div>
 
-        {/* Direct Contact Info (Email & Phone) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
           <a 
             href="mailto:navaneeth.softwareengineer@gmail.com" 
             className="flex items-center gap-3 p-3.5 rounded-xl bg-black/20 hover:bg-white/10 border border-white/5 transition-colors group"
@@ -104,9 +114,22 @@ export default function ContactSection() {
               </p>
             </div>
           </a>
+
+          <div className="flex items-center gap-3 p-3.5 rounded-xl bg-black/20 hover:bg-white/10 border border-white/5 transition-colors group cursor-default">
+            <div className="p-2.5 rounded-lg bg-green-500/20 text-green-400">
+              <FiMapPin className="text-lg" />
+            </div>
+            <div>
+              <p className="text-xs text-white/50 font-medium">Location</p>
+              <p className="text-sm text-white font-medium group-hover:text-green-400 transition-colors">
+                Bengaluru
+              </p>
+            </div>
+          </div>
         </div>
 
-        <form onSubmit={onSubmit} className="flex flex-col gap-4">
+        {/* Attach ref to the form */}
+        <form ref={formRef} onSubmit={onSubmit} className="flex flex-col gap-4">
           <div className="relative flex items-center">
             <FiUser className="absolute left-4 text-white/40 text-lg" />
             <input 
@@ -140,7 +163,8 @@ export default function ContactSection() {
               rows={4}
               value={formDataState.message}
               onChange={handleChange}
-              placeholder="Your Message" 
+              onKeyDown={handleKeyDown} // Trigger submission on Enter
+              placeholder="Your Message (Press Enter to send)" 
               required
               className="w-full pl-12 pr-4 py-3 rounded-xl bg-black/20 border border-white/5 text-white placeholder-white/40 focus:outline-none focus:border-blue-500/50 transition-colors resize-none text-sm"
             />

@@ -30,12 +30,35 @@ export default function Navbar() {
   }, [isOpen]);
 
   // Smooth scroll handler function
+  // const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  //   e.preventDefault();
+  //   const targetId = href.replace('#', '');
+  //   const element = document.getElementById(targetId);
+  //   if (element) {
+  //     element.scrollIntoView({ behavior: 'smooth' });
+  //   }
+  //   setIsOpen(false); // Close mobile menu on click
+  // };
+  // Smooth scroll handler function
+ // Smooth scroll handler function
   const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
+    
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      const offset = 110; // The exact space you want above the section (Navbar height + breathing room)
+
+      // 1. Initial scroll to get the page moving and trigger your ScrollReveal animations
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
+
+      // 2. Automatically recalculate and adjust the scroll exactly when the animations expand the layout
+      // 400ms happens mid-scroll, so the user won't even notice the browser correcting itself!
+      setTimeout(() => {
+        const newPosition = element.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo({ top: newPosition - offset, behavior: 'smooth' });
+      }, 400); 
     }
     setIsOpen(false); // Close mobile menu on click
   };

@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- Dark background matching your theme -->
+  <rect width="512" height="512" rx="120" fill="#050505" />
+  
+  <!-- The "N" and the blue dot -->
+  <text 
+    x="256" 
+    y="360" 
+    font-size="300" 
+    font-weight="900" 
+    font-family="system-ui, -apple-system, sans-serif" 
+    fill="#ffffff" 
+    text-anchor="middle"
+  >
+    N<tspan fill="#3b82f6">.</tspan>
+  </text>
+</svg>
