@@ -4,6 +4,7 @@ import React from 'react';
 import GlassCard from './GlassCard';
 import ScrollReveal from './ScrollReveal';
 import { motion, Variants } from 'framer-motion';
+import { FiMapPin } from 'react-icons/fi'; // Imported map pin icon
 
 export default function ExperienceSection() {
   const experiences = [
@@ -11,6 +12,7 @@ export default function ExperienceSection() {
       id: 1,
       role: "Associate Software Developer",
       company: "TOPGREP TECH",
+      location: "Bengaluru, India",
       project: "AIVAGAM",
       date: "June 2025 - March 2026",
       details: [
@@ -24,6 +26,7 @@ export default function ExperienceSection() {
       id: 2,
       role: "Software Engineer",
       company: "SCENAI DATA SCIENCE",
+      location: "Bengaluru, India",
       project: "TARVAH & ORBIT",
       date: "October 2022 - January 2025",
       details: [
@@ -37,6 +40,7 @@ export default function ExperienceSection() {
       id: 3,
       role: "NodeJS Trainee",
       company: "APP INNOVATION TECHNOLOGIES",
+      location: "Coimbatore, India",
       project: "",
       date: "May 2022 - August 2022",
       details: [
@@ -70,7 +74,8 @@ export default function ExperienceSection() {
   };
 
   return (
-    <section id="experience" className="w-full py-12 px-4 scroll-mt-24">
+    <section id="experience" className="w-full py-12 scroll-mt-24">
+      {/* Note: Removed px-4 here to inherit standard padding from Home layout */}
       <ScrollReveal direction="up">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-10 text-center md:text-left text-white">
           Experience
@@ -82,15 +87,23 @@ export default function ExperienceSection() {
           <ScrollReveal key={exp.id} direction="up" delay={index * 0.2}>
             <GlassCard className="flex flex-col md:flex-row gap-6 md:gap-12 transition-all duration-300">
               
-              {/* Left Column: Role & Dates */}
+              {/* Left Column: Role, Company, Location & Dates */}
               <div className="md:w-1/3 flex flex-col gap-2">
-                <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold self-start border border-blue-500/20">
+                <span className="inline-block px-4 py-1.5 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold self-start border border-blue-500/20 mb-1">
                   {exp.date}
                 </span>
-                <h3 className="text-2xl font-bold mt-2 text-white">{exp.role}</h3>
-                <p className="text-lg font-medium text-white/80">{exp.company}</p>
+                <h3 className="text-2xl font-bold mt-1 text-white">{exp.role}</h3>
+                
+                <div className="flex flex-col gap-1 mt-1">
+                  <p className="text-lg font-medium text-white/80">{exp.company}</p>
+                  <div className="flex items-center gap-1.5 text-sm font-medium text-white/60 mb-1">
+                    <FiMapPin className="text-blue-400" />
+                    <span>{exp.location}</span>
+                  </div>
+                </div>
+
                 {exp.project && (
-                  <p className="text-sm text-white/50 italic">Project: {exp.project}</p>
+                  <p className="text-sm text-white/50 italic mt-1">Project: {exp.project}</p>
                 )}
               </div>
 

@@ -1,10 +1,13 @@
 import React from 'react';
+import { FaAws } from 'react-icons/fa';
 import { 
   SiJavascript, SiTypescript, SiReact, SiNextdotjs, 
   SiNodedotjs, SiAngular, SiOpenjdk, SiSpringboot, 
   SiMongodb, SiPostgresql, SiMariadb, SiRedis, 
   SiApachekafka, SiPython, SiRabbitmq, SiDocker, 
-  SiTailwindcss, SiExpress, SiJsonwebtokens 
+  SiTailwindcss, SiExpress, SiJsonwebtokens,
+  SiMysql, SiCloudflare, SiSass,
+  SiMui, SiAntdesign, SiRedux
 } from 'react-icons/si';
 import { VscGitMerge } from 'react-icons/vsc';
 
@@ -35,6 +38,19 @@ export const TECH_ICON_MAP: Record<string, React.ReactNode> = {
   tailwindcss: <SiTailwindcss className="text-cyan-400" />,
   jwt: <SiJsonwebtokens className="text-yellow-400" />,
   jsonwebtoken: <SiJsonwebtokens className="text-yellow-400" />,
+  
+  // Newly Added Technologies
+  mysql: <SiMysql className="text-blue-500" />,
+  'aws s3': <FaAws className="text-orange-500" />,
+  cloudflare: <SiCloudflare className="text-orange-400" />,
+  scss: <SiSass className="text-pink-500" />,
+  'material ui': <SiMui className="text-blue-400" />,
+  mui: <SiMui className="text-blue-400" />,
+  'ant design': <SiAntdesign className="text-blue-500" />,
+  antdesign: <SiAntdesign className="text-blue-500" />,
+  redux: <SiRedux className="text-purple-500" />,
+  'redux toolkit': <SiRedux className="text-purple-500" />,
+  'react flow': <SiReact className="text-pink-400" />, // Reusing React icon for React Flow
 };
 
 // Reusable helper function to look up icons anywhere

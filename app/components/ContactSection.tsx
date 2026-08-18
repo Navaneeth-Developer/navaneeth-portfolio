@@ -123,7 +123,7 @@ export default function ContactSection() {
             <div>
               <p className="text-xs text-white/50 font-medium">Location</p>
               <p className="text-sm text-white font-medium group-hover:text-green-400 transition-colors">
-                Bengaluru
+                Bengaluru, India
               </p>
             </div>
           </div>

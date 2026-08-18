@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 interface MagneticWrapperProps {
@@ -16,9 +16,18 @@ export default function MagneticWrapper({
 }: MagneticWrapperProps) {
   const ref = useRef<HTMLDivElement>(null);
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    // Detect if the device is a touch screen (phone/tablet)
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      setIsTouchDevice(true);
+    }
+  }, []);
 
   const handleMouse = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!ref.current) return;
+    // If it is a touch device, completely ignore the movement calculation
+    if (!ref.current || isTouchDevice) return;
     
     // Get the exact dimensions and position of the button on the screen
     const { height, width, left, top } = ref.current.getBoundingClientRect();
@@ -32,6 +41,7 @@ export default function MagneticWrapper({
   };
 
   const reset = () => {
+    if (isTouchDevice) return;
     // Snap back to original position when mouse leaves
     setPosition({ x: 0, y: 0 });
   };
@@ -41,14 +51,16 @@ export default function MagneticWrapper({
       ref={ref}
       onMouseMove={handleMouse}
       onMouseLeave={reset}
-      animate={{ x: position.x, y: position.y }}
+      // Force position to 0,0 on mobile just to be absolutely safe
+      animate={{ x: isTouchDevice ? 0 : position.x, y: isTouchDevice ? 0 : position.y }}
       transition={{ 
         type: "spring", 
         stiffness: 150, 
         damping: 15, 
         mass: 0.1 
       }}
-      className={`w-fit inline-block ${className}`}
+      // Removed 'w-fit' so that passing 'w-full' via className works perfectly
+      className={`inline-block ${className}`}
     >
       {children}
     </motion.div>
