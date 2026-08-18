@@ -9,6 +9,8 @@ export default function Navbar() {
   const navRef = useRef<HTMLElement>(null);
 
   const navLinks = [
+    { name: 'Home', href: '#home' },
+    { name: 'Expertise', href: '#expertise' },
     { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },

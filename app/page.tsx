@@ -16,10 +16,10 @@ export default function Home() {
       <HeroSection />
 
       {/* 2. Overview & Highlights (Grid of Glass Cards) */}
-      <div className="w-full pt-8">
+      <div className="w-full pt-8" id="expertise">
         <ScrollReveal direction="up" delay={0.2}>
           <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-10 text-center md:text-left text-white">
-            Overview & Highlights
+           Featured Tool & Expertise
           </h2>
         </ScrollReveal>
 
